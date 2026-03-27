@@ -1,34 +1,34 @@
 # Atlas Workspace
 
-Plataforma SaaS para documentacao operacional, colaboracao em tempo real e governanca de conteudo em workspaces compartilhados. O produto concentra edicao, biblioteca, membros, aprovacoes e billing em um unico ambiente.
+Plataforma SaaS para documentação operacional, colaboração em tempo real e governança de conteúdo em workspaces compartilhados. O produto concentra edição, biblioteca, membros, aprovações e cobrança em um único ambiente.
 
-## Visao Geral
+## Visão Geral
 
 O projeto foi estruturado como um monorepo com interface web em Next.js e API em NestJS, apoiado por PostgreSQL, Prisma, Socket.IO e Stripe.
 
-Na pratica, a plataforma combina:
+Na prática, a plataforma combina:
 
-- editor de documentos com colaboracao em tempo real
+- editor de documentos com colaboração em tempo real
 - biblioteca de documentos e templates
-- gestao de workspaces e membros
-- compartilhamento publico por link
-- analytics operacionais e onboarding
-- billing e planos integrados ao produto
+- gestão de workspaces e membros
+- compartilhamento público por link
+- análises operacionais e onboarding
+- cobrança e planos integrados ao produto
 
 ## Principais Funcionalidades
 
-- autenticacao com e-mail e senha
+- autenticação com e-mail e senha
 - Google OAuth para acesso social
-- editor colaborativo com blocos e sincronizacao em tempo real
-- comentarios, revisoes e historico de versoes
-- criacao e reutilizacao de templates
+- editor colaborativo com blocos e sincronização em tempo real
+- comentários, revisões e histórico de versões
+- criação e reutilização de templates
 - upload de arquivos e anexos
-- compartilhamento publico de documentos
-- workspaces com membros, permissoes e configuracoes
-- painel de billing com integracao Stripe
+- compartilhamento público de documentos
+- workspaces com membros, permissões e configurações
+- painel de cobrança com integração Stripe
 - camada opcional de recursos de IA no backend
 
-## Screenshots
+## Capturas de Tela
 
 ### Home
 
@@ -75,16 +75,16 @@ Na pratica, a plataforma combina:
 └── README.md
 ```
 
-Os modulos centrais da API incluem:
+Os módulos centrais da API incluem:
 
 - `auth`: login, JWT e Google OAuth
-- `documents`: editor, metadados e historico
-- `collaboration`: sincronizacao em tempo real
-- `templates`: estruturas reutilizaveis
-- `workspaces`: organizacao por conta e membros
+- `documents`: editor, metadados e histórico
+- `collaboration`: sincronização em tempo real
+- `templates`: estruturas reutilizáveis
+- `workspaces`: organização por conta e membros
 - `public-shares`: compartilhamento externo
 - `uploads`: anexos e arquivos
-- `billing`: integracao com planos e Stripe
+- `billing`: cobrança, planos e Stripe
 - `ai`: camada de recursos assistidos por modelo
 
 ## Fluxos Principais
@@ -94,21 +94,21 @@ Os modulos centrais da API incluem:
 - cria ou acessa um workspace
 - organiza documentos e templates
 - convida membros
-- acompanha atividade e analytics
+- acompanha atividade e análises
 
-### Documentacao
+### Documentação
 
 - cria documentos a partir do zero ou de templates
-- edita em colaboracao com sincronizacao em tempo real
-- revisa, comenta e compartilha por link publico
+- edita em colaboração com sincronização em tempo real
+- revisa, comenta e compartilha por link público
 
-### Operacao
+### Operação
 
-- acompanha onboarding, membros e configuracoes
-- gerencia billing e plano ativo
-- usa os modulos do produto sem depender de varias ferramentas isoladas
+- acompanha onboarding, membros e configurações
+- gerencia cobrança e plano ativo
+- usa os módulos do produto sem depender de várias ferramentas isoladas
 
-## Execucao Local
+## Execução Local
 
 ### Requisitos
 
@@ -116,7 +116,7 @@ Os modulos centrais da API incluem:
 - npm
 - Docker e Docker Compose
 
-### 1. Instale as dependencias
+### 1. Instale as dependências
 
 ```bash
 npm install
@@ -136,7 +136,7 @@ Banco local:
 - user: `notion`
 - password: `notion`
 
-### 3. Configure as variaveis de ambiente
+### 3. Configure as variáveis de ambiente
 
 Copie os exemplos existentes:
 
@@ -145,7 +145,7 @@ cp apps/api/.env.example apps/api/.env
 cp apps/web/.env.example apps/web/.env.local
 ```
 
-Variaveis de integracao como Google OAuth, Anthropic e Stripe podem permanecer vazias durante o setup inicial se esses fluxos nao forem utilizados localmente.
+Variáveis de integração como Google OAuth, Anthropic e Stripe podem permanecer vazias durante o setup inicial se esses fluxos não forem utilizados localmente.
 
 ### 4. Prepare o banco
 
@@ -155,7 +155,7 @@ npm run db:push
 npm run db:seed
 ```
 
-### 5. Inicie a aplicacao
+### 5. Inicie a aplicação
 
 ```bash
 npm run dev
@@ -168,12 +168,12 @@ npm run dev:web
 npm run dev:api
 ```
 
-Enderecos locais:
+Endereços locais:
 
 - frontend: [http://localhost:3000](http://localhost:3000)
 - API: [http://localhost:4000/api](http://localhost:4000/api)
 
-## Scripts Uteis
+## Scripts Úteis
 
 ```bash
 npm run dev
@@ -185,19 +185,19 @@ npm run db:migrate
 npm run db:seed
 ```
 
-## Observacoes
+## Observações
 
-- os arquivos `.env.example` de `apps/api` e `apps/web` ja cobrem o setup base do projeto
-- Google OAuth, Stripe e recursos de IA dependem de credenciais validas para uso completo
+- os arquivos `.env.example` de `apps/api` e `apps/web` já cobrem o setup base do projeto
+- Google OAuth, Stripe e recursos de IA dependem de credenciais válidas para uso completo
 
-## Roadmap Tecnico
+## Roadmap Técnico
 
-- adicionar testes automatizados para fluxos criticos
+- adicionar testes automatizados para fluxos críticos
 - documentar contratos principais da API
 - ampliar a camada de analytics e auditoria
-- refinar permissao por workspace e papeis
-- fortalecer pipeline de CI para lint, build e validacoes
+- refinar permissão por workspace e papéis
+- fortalecer pipeline de CI para lint, build e validações
 
-## Licenca
+## Licença
 
-Projeto disponibilizado para demonstracao tecnica.
+Projeto disponibilizado para demonstração técnica.
