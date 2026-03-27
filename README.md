@@ -30,10 +30,6 @@ Na prática, a plataforma combina:
 
 ## Capturas de Tela
 
-### Home
-
-![Tela inicial do Atlas Workspace](assets/screenshots/home.png)
-
 ### Dashboard
 
 ![Resumo do workspace com documentos, membros e templates](assets/screenshots/dashboard.png)
