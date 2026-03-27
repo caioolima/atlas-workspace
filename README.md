@@ -28,6 +28,20 @@ Na pratica, a plataforma combina:
 - painel de billing com integracao Stripe
 - camada opcional de recursos de IA no backend
 
+## Screenshots
+
+### Home
+
+![Tela inicial do Atlas Workspace](assets/screenshots/home.png)
+
+### Dashboard
+
+![Resumo do workspace com documentos, membros e templates](assets/screenshots/dashboard.png)
+
+### Biblioteca
+
+![Biblioteca de templates do workspace](assets/screenshots/templates.png)
+
 ## Stack
 
 ### Frontend
