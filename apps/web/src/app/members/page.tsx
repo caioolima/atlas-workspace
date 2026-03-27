@@ -152,7 +152,7 @@ function MembersContent({ workspaceId }: { workspaceId: string | null }) {
               className="grid gap-4 border-b border-[var(--stroke)] py-5 last:border-none md:grid-cols-[minmax(0,1fr)_180px_120px]"
             >
               <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[rgba(24,33,43,0.05)] text-sm font-semibold text-[var(--foreground)]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[var(--panel-soft)] text-sm font-semibold text-[var(--foreground)]">
                   {getInitials(member.user.name, member.user.email)}
                 </div>
                 <div>

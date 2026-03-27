@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f1e8;
-  --foreground: #1d2721;
-  --muted: #6e776e;
-  --muted-strong: #435047;
-  --panel: rgba(253, 250, 244, 0.88);
-  --panel-strong: rgba(253, 250, 244, 0.96);
-  --panel-soft: rgba(246, 241, 231, 0.98);
-  --panel-contrast: rgba(234, 226, 212, 0.92);
-  --stroke: rgba(64, 77, 63, 0.1);
-  --stroke-strong: rgba(64, 77, 63, 0.16);
-  --accent: #6b7e65;
-  --accent-2: #8e7454;
-  --accent-3: #4f634d;
-  --accent-4: #e8dfd0;
+  --background: #f4efe6;
+  --foreground: #2b312a;
+  --muted: #70766e;
+  --muted-strong: #55624f;
+  --panel: #fbf8f2;
+  --panel-strong: #fbf8f2;
+  --panel-soft: #f1eadf;
+  --panel-contrast: #e8dbc8;
+  --stroke: #d9cfbe;
+  --stroke-strong: #cfc3b3;
+  --accent: #7b8972;
+  --accent-2: #b68a5f;
+  --accent-3: #55624f;
+  --accent-4: #e8dbc8;
   --danger: #b05252;
-  --shadow: 0 18px 42px rgba(44, 52, 44, 0.06);
+  --shadow: 0 24px 60px rgba(85, 98, 79, 0.12);
   --font-sans-base: "Aptos", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-display-base: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
@@ -39,9 +39,9 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(107, 126, 101, 0.08), transparent 28%),
-    radial-gradient(circle at top right, rgba(142, 116, 84, 0.07), transparent 24%),
-    linear-gradient(180deg, #faf7f1 0%, #f4f1e8 44%, #eee8dd 100%);
+    radial-gradient(circle at top left, rgba(123, 137, 114, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(182, 138, 95, 0.08), transparent 24%),
+    linear-gradient(180deg, #f7f2e9 0%, #f4efe6 46%, #f0e9de 100%);
   color: var(--foreground);
   font-family: var(--font-sans-base);
 }
@@ -52,8 +52,8 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(15, 23, 42, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(123, 137, 114, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 137, 114, 0.035) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 88%);
   opacity: 0.42;
@@ -125,7 +125,7 @@ button {
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--foreground);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--panel);
   transition:
     transform 160ms ease,
     background 160ms ease,
@@ -134,8 +134,8 @@ button {
 
 .outline-button:hover {
   transform: translateY(-1px);
-  background: #ffffff;
-  border-color: rgba(107, 126, 101, 0.22);
+  background: var(--panel-soft);
+  border-color: rgba(123, 137, 114, 0.22);
 }
 
 .icon-button {
@@ -146,7 +146,7 @@ button {
   width: 2.5rem;
   border-radius: 10px;
   border: 1px solid var(--stroke-strong);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--panel);
   color: var(--foreground);
   transition:
     transform 160ms ease,
@@ -155,14 +155,14 @@ button {
 
 .icon-button:hover {
   transform: translateY(-1px);
-  background: #ffffff;
+  background: var(--panel-soft);
 }
 
 .field-control {
   width: 100%;
   border-radius: 10px;
   border: 1px solid var(--stroke);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--panel-soft);
   color: var(--foreground);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
   transition:
@@ -184,7 +184,7 @@ button {
 }
 
 .field-control::placeholder {
-  color: rgba(140, 152, 165, 0.92);
+  color: rgba(112, 118, 110, 0.82);
 }
 
 .tech-label {
@@ -208,8 +208,8 @@ button {
 
 .editor-grid {
   background-image:
-    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(123, 137, 114, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 137, 114, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: center;
 }
@@ -220,7 +220,7 @@ button {
   gap: 0.5rem;
   border-radius: 999px;
   border: 1px solid var(--stroke);
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--panel-soft);
   padding: 0.4rem 0.75rem;
   color: var(--muted-strong);
 }
@@ -228,15 +228,15 @@ button {
 .metric-card {
   border-radius: 14px;
   border: 1px solid var(--stroke);
-  background: #ffffff;
+  background: var(--panel);
   padding: 1.25rem;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+  box-shadow: 0 12px 30px rgba(85, 98, 79, 0.08);
 }
 
 .subtle-card {
   border-radius: 14px;
   border: 1px solid var(--stroke);
-  background: #f8fafc;
+  background: var(--panel-soft);
 }
 
 .status-chip {
@@ -245,7 +245,7 @@ button {
   gap: 0.45rem;
   border-radius: 999px;
   border: 1px solid var(--stroke);
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--panel);
   padding: 0.35rem 0.7rem;
   font-size: 0.75rem;
   line-height: 1rem;
@@ -253,15 +253,15 @@ button {
 }
 
 .status-chip[data-tone="positive"] {
-  border-color: rgba(15, 118, 110, 0.16);
-  background: rgba(15, 118, 110, 0.1);
-  color: #115e59;
+  border-color: rgba(123, 137, 114, 0.18);
+  background: rgba(123, 137, 114, 0.12);
+  color: #55624f;
 }
 
 .status-chip[data-tone="warning"] {
-  border-color: rgba(160, 127, 88, 0.18);
-  background: rgba(160, 127, 88, 0.1);
-  color: #7b603f;
+  border-color: rgba(182, 138, 95, 0.2);
+  background: rgba(182, 138, 95, 0.12);
+  color: #8a6642;
 }
 
 .status-chip[data-tone="danger"] {
@@ -271,9 +271,9 @@ button {
 }
 
 .status-chip[data-tone="info"] {
-  border-color: rgba(24, 33, 43, 0.12);
-  background: rgba(24, 33, 43, 0.04);
-  color: #41505f;
+  border-color: rgba(85, 98, 79, 0.12);
+  background: rgba(85, 98, 79, 0.06);
+  color: #55624f;
 }
 
 .section-divider {
@@ -286,7 +286,7 @@ button {
   height: 8px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(24, 33, 43, 0.08);
+  background: rgba(85, 98, 79, 0.12);
 }
 
 .progress-value {
@@ -322,5 +322,5 @@ textarea::-webkit-scrollbar-thumb {
 
 input::placeholder,
 textarea::placeholder {
-  color: rgba(140, 152, 165, 0.92);
+  color: rgba(112, 118, 110, 0.82);
 }

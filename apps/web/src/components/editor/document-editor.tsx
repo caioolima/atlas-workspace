@@ -958,7 +958,7 @@ export function DocumentEditor({ documentId }: { documentId: string }) {
                   <a
                     key={block.id}
                     href={`#block-${block.id}`}
-                    className="block rounded-[14px] border border-[var(--stroke)] bg-[var(--panel-soft)] px-3 py-3 transition hover:border-[rgba(37,99,235,0.16)] hover:bg-white"
+                    className="block rounded-[14px] border border-[var(--stroke)] bg-[var(--panel-soft)] px-3 py-3 transition hover:border-[rgba(123,137,114,0.24)] hover:bg-[var(--panel)]"
                   >
                     <div className="flex items-center justify-between gap-3">
                       <p className="text-sm font-medium text-[var(--foreground)]">
@@ -1030,7 +1030,7 @@ export function DocumentEditor({ documentId }: { documentId: string }) {
                       href={upload.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="block rounded-[14px] border border-[var(--stroke)] bg-white px-4 py-3 transition hover:border-[rgba(37,99,235,0.18)]"
+                      className="block rounded-[14px] border border-[var(--stroke)] bg-[var(--panel)] px-4 py-3 transition hover:border-[rgba(123,137,114,0.24)]"
                     >
                       <p className="text-sm font-medium text-[var(--foreground)]">
                         {upload.filename}
@@ -1072,7 +1072,7 @@ export function DocumentEditor({ documentId }: { documentId: string }) {
               </div>
             </div>
 
-            <div className="mt-5 rounded-[22px] border border-[var(--stroke)] bg-white px-5 py-6 md:px-8 md:py-8">
+            <div className="mt-5 rounded-[22px] border border-[var(--stroke)] bg-[var(--panel)] px-5 py-6 md:px-8 md:py-8">
               {document.blocks.map((block) => {
                 const todoChecked = block.type === "TODO" && getTodoChecked(block);
 
@@ -1227,7 +1227,7 @@ export function DocumentEditor({ documentId }: { documentId: string }) {
           <aside className="space-y-4">
             <section className="surface rounded-[22px] p-5">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[rgba(37,99,235,0.08)] text-[var(--accent)]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[var(--accent-4)] text-[var(--accent-3)]">
                   <Bot className="h-5 w-5" />
                 </div>
                 <div>
@@ -1300,7 +1300,7 @@ export function DocumentEditor({ documentId }: { documentId: string }) {
                   collaborators.map((person) => (
                     <span
                       key={person.id}
-                      className="rounded-full border border-[var(--stroke)] bg-white px-3 py-1 text-sm text-[var(--foreground)]"
+                      className="rounded-full border border-[var(--stroke)] bg-[var(--panel)] px-3 py-1 text-sm text-[var(--foreground)]"
                     >
                       {person.name ?? person.email} · {formatEnumLabel(person.role)}
                     </span>

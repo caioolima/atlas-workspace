@@ -181,7 +181,7 @@ function DashboardContent({ workspaceId }: { workspaceId: string | null }) {
                 <Link
                   key={document.id}
                   href={`/documents/${document.id}`}
-                  className="grid gap-3 border-b border-[var(--stroke)] py-5 transition last:border-none hover:bg-[rgba(24,33,43,0.02)] md:grid-cols-[minmax(0,1fr)_220px_160px]"
+                  className="grid gap-3 border-b border-[var(--stroke)] py-5 transition last:border-none hover:bg-[var(--panel-soft)] md:grid-cols-[minmax(0,1fr)_220px_160px]"
                 >
                   <div>
                     <div className="flex flex-wrap gap-2">
@@ -217,7 +217,7 @@ function DashboardContent({ workspaceId }: { workspaceId: string | null }) {
         <aside className="space-y-5">
           <section className="surface rounded-[26px] p-5">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[rgba(86,120,104,0.1)] text-[var(--accent)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[var(--accent-4)] text-[var(--accent-3)]">
                 <Bot className="h-5 w-5" />
               </div>
               <div>

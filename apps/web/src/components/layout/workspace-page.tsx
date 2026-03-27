@@ -153,7 +153,7 @@ export function WorkspacePage({
           <div className="flex flex-col gap-4 p-4 lg:flex-row lg:items-center lg:justify-between lg:p-5">
             <div className="flex flex-wrap items-center gap-3">
               <Link href="/" className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[rgba(86,120,104,0.1)] text-[var(--accent)]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[var(--accent-4)] text-[var(--accent-3)]">
                   <Building2 className="h-4 w-4" />
                 </div>
                 <div>
@@ -167,7 +167,7 @@ export function WorkspacePage({
               <div className="h-8 w-px bg-[var(--stroke)]" />
 
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-[12px] bg-[rgba(24,33,43,0.05)] text-sm font-semibold text-[var(--foreground)]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-[12px] bg-[var(--panel-soft)] text-sm font-semibold text-[var(--foreground)]">
                   {getInitials(formatWorkspaceDisplayName(currentWorkspace?.name))}
                 </div>
                 <div className="min-w-[220px]">
@@ -191,8 +191,8 @@ export function WorkspacePage({
               <span className="status-chip" data-tone="warning">
                 {formatPlanLabel(user.plan)}
               </span>
-              <div className="flex items-center gap-3 rounded-[14px] border border-[var(--stroke)] bg-[rgba(24,33,43,0.03)] px-3 py-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-white text-xs font-semibold text-[var(--foreground)]">
+              <div className="flex items-center gap-3 rounded-[14px] border border-[var(--stroke)] bg-[var(--panel-soft)] px-3 py-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--panel)] text-xs font-semibold text-[var(--foreground)]">
                   {getInitials(user.name, user.email)}
                 </div>
                 <div className="hidden md:block">
@@ -223,8 +223,8 @@ export function WorkspacePage({
                     className={[
                       "inline-flex shrink-0 items-center gap-2 rounded-[12px] px-3.5 py-2.5 text-sm font-medium transition",
                       active
-                        ? "bg-[rgba(86,120,104,0.1)] text-[var(--foreground)]"
-                        : "text-[var(--muted-strong)] hover:bg-[rgba(24,33,43,0.04)]",
+                        ? "bg-[var(--accent-4)] text-[var(--foreground)]"
+                        : "text-[var(--muted-strong)] hover:bg-[var(--panel-soft)]",
                     ].join(" ")}
                   >
                     <item.icon className="h-4 w-4" />

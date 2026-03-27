@@ -15,7 +15,7 @@ import { useToast } from "@/components/providers/toast-provider";
 import { getErrorMessage, normalizePtBrCopy } from "@/lib/utils";
 import type { WorkspaceOverview } from "@/types";
 
-const BRAND_SWATCHES = ["#172554", "#2563eb", "#0f766e", "#7c3aed", "#b45309", "#be123c"];
+const BRAND_SWATCHES = ["#55624f", "#7b8972", "#8d977f", "#b68a5f", "#c7b092", "#d9cfbe"];
 
 function SettingsContent({
   refreshWorkspaces,
@@ -143,7 +143,7 @@ function SettingsContent({
               <a
                 key={href}
                 href={href}
-                className="block rounded-[14px] border border-[var(--stroke)] bg-[var(--panel-soft)] px-4 py-3 text-sm font-medium text-[var(--foreground)] transition hover:border-[rgba(37,99,235,0.16)] hover:bg-white"
+                className="block rounded-[14px] border border-[var(--stroke)] bg-[var(--panel-soft)] px-4 py-3 text-sm font-medium text-[var(--foreground)] transition hover:border-[rgba(123,137,114,0.24)] hover:bg-[var(--panel)]"
               >
                 {label}
               </a>
@@ -221,7 +221,7 @@ function SettingsContent({
 
         <section id="identity" className="surface rounded-[24px] p-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[rgba(37,99,235,0.08)] text-[var(--accent)]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[var(--accent-4)] text-[var(--accent-3)]">
               <Building2 className="h-5 w-5" />
             </div>
             <div>
@@ -371,18 +371,18 @@ function SettingsContent({
       <aside className="space-y-4">
         <section className="surface rounded-[24px] p-5">
           <p className="tech-label text-[10px] text-[var(--muted)]">Preview</p>
-          <div className="mt-4 overflow-hidden rounded-[20px] border border-[var(--stroke)] bg-white">
+          <div className="mt-4 overflow-hidden rounded-[20px] border border-[var(--stroke)] bg-[var(--panel)]">
             <div
               className="h-28 border-b border-[var(--stroke)]"
               style={{
-                background: `linear-gradient(135deg, ${previewColor} 0%, rgba(15,23,42,0.92) 100%)`,
+                background: `linear-gradient(135deg, ${previewColor} 0%, var(--accent-2) 100%)`,
               }}
             />
             <div className="p-5">
               <div className="flex items-center gap-3">
                 <div
                   className="flex h-12 w-12 items-center justify-center rounded-[16px] text-sm font-semibold text-white"
-                  style={{ backgroundColor: form.brandColor || "#172554" }}
+                  style={{ backgroundColor: form.brandColor || "#55624f" }}
                 >
                   {(form.name || "WS").slice(0, 2).toUpperCase()}
                 </div>

@@ -118,7 +118,7 @@ function BillingContent() {
 
         <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
           <div className="overflow-hidden rounded-[18px] border border-[var(--stroke)]">
-            <div className="grid grid-cols-[1.3fr_0.7fr_0.8fr] border-b border-[var(--stroke)] bg-[rgba(24,33,43,0.03)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
+            <div className="grid grid-cols-[1.3fr_0.7fr_0.8fr] border-b border-[var(--stroke)] bg-[var(--panel-soft)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
               <span>Métrica</span>
               <span>Valor</span>
               <span>Leitura</span>

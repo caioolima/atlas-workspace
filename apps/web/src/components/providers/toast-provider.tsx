@@ -115,7 +115,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
           return (
             <div
               key={toast.id}
-              className="toast-card pointer-events-auto flex items-start gap-3 rounded-[24px] border border-[var(--stroke)] bg-[rgba(255,255,255,0.92)] px-4 py-3 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl"
+              className="toast-card pointer-events-auto flex items-start gap-3 rounded-[24px] border border-[var(--stroke)] bg-[var(--panel)] px-4 py-3 shadow-[0_24px_60px_rgba(85,98,79,0.14)] backdrop-blur-xl"
               role="status"
             >
               <div
@@ -140,7 +140,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
               <button
                 aria-label="Fechar notificação"
-                className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition hover:bg-[rgba(15,23,42,0.04)] hover:text-[var(--foreground)]"
+                className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--muted)] transition hover:bg-[var(--panel-soft)] hover:text-[var(--foreground)]"
                 type="button"
                 onClick={() => dismiss(toast.id)}
               >

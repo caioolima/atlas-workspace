@@ -220,7 +220,7 @@ function TemplatesContent({ workspaceId }: { workspaceId: string | null }) {
                   {template.blocks.slice(0, 3).map((block) => (
                     <div
                       key={`${template.id}-${block.id}`}
-                      className="rounded-[14px] border border-[var(--stroke)] bg-white px-4 py-3 text-sm leading-6 text-[var(--foreground)]"
+                      className="rounded-[14px] border border-[var(--stroke)] bg-[var(--panel)] px-4 py-3 text-sm leading-6 text-[var(--foreground)]"
                     >
                       {normalizePtBrCopy(block.content)}
                     </div>
