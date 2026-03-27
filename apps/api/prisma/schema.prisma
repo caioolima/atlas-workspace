@@ -1,0 +1,389 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AuthProvider {
+  LOCAL
+  GOOGLE
+}
+
+enum BlockType {
+  PARAGRAPH
+  HEADING
+  TODO
+  BULLET
+  QUOTE
+  IMAGE
+  CALLOUT
+}
+
+enum SubscriptionPlan {
+  FREE
+  PRO
+  TEAM
+}
+
+enum SubscriptionStatus {
+  INACTIVE
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELED
+  INCOMPLETE
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MANAGER
+  MEMBER
+  VIEWER
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  REVOKED
+}
+
+enum DocumentStatus {
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  ARCHIVED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum TemplateCategory {
+  ONBOARDING
+  HANDOFF
+  SOP
+  INCIDENT
+  SALES
+  SUCCESS
+  OPERATIONS
+  CUSTOM
+}
+
+enum ActivityType {
+  WORKSPACE_CREATED
+  WORKSPACE_UPDATED
+  MEMBER_INVITED
+  INVITE_ACCEPTED
+  DOCUMENT_CREATED
+  DOCUMENT_UPDATED
+  DOCUMENT_STATUS_CHANGED
+  COMMENT_ADDED
+  APPROVAL_REQUESTED
+  APPROVAL_APPROVED
+  APPROVAL_REJECTED
+  TEMPLATE_APPLIED
+  VERSION_RESTORED
+  PUBLIC_SHARE_CREATED
+  PUBLIC_SHARE_REVOKED
+  UPLOAD_ADDED
+}
+
+model User {
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String                 @unique
+  passwordHash          String?
+  avatarUrl             String?
+  provider              AuthProvider           @default(LOCAL)
+  googleId              String?                @unique
+  stripeCustomerId      String?                @unique
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  ownedDocuments        Document[]             @relation("OwnedDocuments")
+  editedDocuments       Document[]             @relation("EditedDocuments")
+  collaborations        DocumentCollaborator[]
+  uploads               Upload[]
+  sessions              Session[]
+  subscription          Subscription?
+  ownedWorkspaces       Workspace[]            @relation("OwnedWorkspaces")
+  workspaceMemberships  WorkspaceMember[]
+  sentWorkspaceInvites  WorkspaceInvite[]      @relation("SentWorkspaceInvites")
+  acceptedInvites       WorkspaceInvite[]      @relation("AcceptedWorkspaceInvites")
+  comments              DocumentComment[]
+  requestedApprovals    ApprovalRequest[]      @relation("ApprovalRequester")
+  reviewedApprovals     ApprovalRequest[]      @relation("ApprovalReviewer")
+  documentVersions      DocumentVersion[]
+  createdPublicShares   PublicShare[]
+  activities            ActivityLog[]
+  createdTemplates      Template[]
+}
+
+model Session {
+  id               String   @id @default(cuid())
+  userId           String
+  refreshTokenHash String
+  userAgent        String?
+  ipAddress        String?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Workspace {
+  id                 String           @id @default(cuid())
+  name               String
+  slug               String           @unique
+  logoUrl            String?
+  brandColor         String?
+  description        String?
+  industry           String?
+  aiTone             String?
+  onboardingCompleted Boolean         @default(false)
+  ownerId            String
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  owner              User             @relation("OwnedWorkspaces", fields: [ownerId], references: [id], onDelete: Cascade)
+  members            WorkspaceMember[]
+  invites            WorkspaceInvite[]
+  documents          Document[]
+  templates          Template[]
+  uploads            Upload[]
+  activities         ActivityLog[]
+
+  @@index([ownerId])
+}
+
+model WorkspaceMember {
+  id          String        @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceRole @default(MEMBER)
+  title       String?
+  createdAt   DateTime      @default(now())
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([userId])
+}
+
+model WorkspaceInvite {
+  id           String       @id @default(cuid())
+  workspaceId  String
+  email        String
+  role         WorkspaceRole @default(MEMBER)
+  token        String       @unique
+  status       InviteStatus @default(PENDING)
+  invitedById  String
+  acceptedById String?
+  createdAt    DateTime     @default(now())
+  acceptedAt   DateTime?
+  revokedAt    DateTime?
+  workspace    Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  invitedBy    User         @relation("SentWorkspaceInvites", fields: [invitedById], references: [id], onDelete: Cascade)
+  acceptedBy   User?        @relation("AcceptedWorkspaceInvites", fields: [acceptedById], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId])
+  @@index([email])
+}
+
+model Document {
+  id              String                 @id @default(cuid())
+  workspaceId     String
+  title           String
+  icon            String?
+  coverUrl        String?
+  summary         String?
+  category        String?
+  status          DocumentStatus         @default(DRAFT)
+  ownerId         String
+  lastEditedById  String?
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+  workspace       Workspace              @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  owner           User                   @relation("OwnedDocuments", fields: [ownerId], references: [id], onDelete: Cascade)
+  lastEditedBy    User?                  @relation("EditedDocuments", fields: [lastEditedById], references: [id], onDelete: SetNull)
+  blocks          Block[]
+  collaborators   DocumentCollaborator[]
+  uploads         Upload[]
+  comments        DocumentComment[]
+  approvals       ApprovalRequest[]
+  versions        DocumentVersion[]
+  publicShares    PublicShare[]
+  activities      ActivityLog[]
+
+  @@index([ownerId])
+  @@index([workspaceId])
+  @@index([status])
+}
+
+model Block {
+  id         String   @id @default(cuid())
+  documentId String
+  type       BlockType
+  content    String   @db.Text
+  metadata   Json?
+  position   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId, position])
+}
+
+model DocumentCollaborator {
+  id         String   @id @default(cuid())
+  documentId String
+  userId     String
+  role       String   @default("editor")
+  createdAt  DateTime @default(now())
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, userId])
+  @@index([userId])
+}
+
+model Upload {
+  id         String    @id @default(cuid())
+  workspaceId String
+  documentId String?
+  userId     String
+  filename   String
+  mimeType   String
+  size       Int
+  url        String
+  createdAt  DateTime  @default(now())
+  workspace  Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  document   Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([documentId])
+  @@index([workspaceId])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String             @unique
+  stripeSubscriptionId String?            @unique
+  stripePriceId        String?
+  plan                 SubscriptionPlan   @default(FREE)
+  status               SubscriptionStatus @default(INACTIVE)
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Template {
+  id          String           @id @default(cuid())
+  workspaceId String?
+  createdById String?
+  name        String
+  slug        String
+  category    TemplateCategory
+  description String
+  icon        String?
+  isSystem    Boolean          @default(false)
+  content     Json
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  workspace   Workspace?       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdBy   User?            @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId])
+  @@index([category])
+  @@unique([workspaceId, slug])
+}
+
+model DocumentComment {
+  id         String   @id @default(cuid())
+  documentId String
+  blockId     String?
+  authorId   String
+  content    String   @db.Text
+  resolvedAt DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+  @@index([authorId])
+}
+
+model ApprovalRequest {
+  id          String         @id @default(cuid())
+  documentId   String
+  requesterId String
+  reviewerId  String?
+  status      ApprovalStatus @default(PENDING)
+  notes       String?
+  reviewNotes String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  reviewedAt  DateTime?
+  document    Document       @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  requester   User           @relation("ApprovalRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  reviewer    User?          @relation("ApprovalReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+
+  @@index([documentId])
+  @@index([requesterId])
+}
+
+model DocumentVersion {
+  id          String   @id @default(cuid())
+  documentId   String
+  createdById String
+  label       String?
+  snapshot    Json
+  createdAt   DateTime @default(now())
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([documentId, createdAt])
+}
+
+model PublicShare {
+  id           String   @id @default(cuid())
+  documentId    String
+  token        String   @unique
+  title        String?
+  allowComments Boolean @default(false)
+  createdById  String
+  createdAt    DateTime @default(now())
+  revokedAt    DateTime?
+  document     Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  createdBy    User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([documentId])
+}
+
+model ActivityLog {
+  id         String       @id @default(cuid())
+  workspaceId String
+  documentId String?
+  userId     String?
+  type       ActivityType
+  message    String
+  metadata   Json?
+  createdAt  DateTime     @default(now())
+  workspace  Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  document   Document?    @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  user       User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, createdAt])
+  @@index([documentId])
+  @@index([userId])
+}
