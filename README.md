@@ -34,10 +34,6 @@ Na prática, a plataforma combina:
 
 ![Resumo do workspace com documentos, membros e templates](assets/screenshots/dashboard.png)
 
-### Biblioteca
-
-![Biblioteca de templates do workspace](assets/screenshots/templates.png)
-
 ## Stack
 
 ### Frontend

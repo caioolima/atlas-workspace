@@ -19,8 +19,11 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import { useWorkspaceSelection } from "@/components/workspace/use-workspace-selection";
 import {
+  formatDisplayEmail,
+  formatDisplayName,
   formatPlanLabel,
   formatPlural,
+  formatWorkspaceDisplayName,
   formatWorkspaceRole,
   getInitials,
   normalizePtBrCopy,
@@ -157,7 +160,7 @@ export function WorkspacePage({
                   <p className="text-base font-semibold tracking-[-0.03em] text-[var(--foreground)]">
                     Atlas
                   </p>
-                  <p className="text-xs text-[var(--muted)]">Workspace Platform</p>
+                  <p className="text-xs text-[var(--muted)]">Operação documental</p>
                 </div>
               </Link>
 
@@ -165,7 +168,7 @@ export function WorkspacePage({
 
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-[12px] bg-[rgba(24,33,43,0.05)] text-sm font-semibold text-[var(--foreground)]">
-                  {getInitials(currentWorkspace?.name)}
+                  {getInitials(formatWorkspaceDisplayName(currentWorkspace?.name))}
                 </div>
                 <div className="min-w-[220px]">
                   <select
@@ -175,7 +178,7 @@ export function WorkspacePage({
                   >
                     {workspaces.map((workspace) => (
                       <option key={workspace.id} value={workspace.id}>
-                        {workspace.name}
+                        {formatWorkspaceDisplayName(workspace.name)}
                       </option>
                     ))}
                   </select>
@@ -194,9 +197,11 @@ export function WorkspacePage({
                 </div>
                 <div className="hidden md:block">
                   <p className="text-sm font-medium text-[var(--foreground)]">
-                    {user.name ?? user.email}
+                    {formatDisplayName(user.name, user.email)}
                   </p>
-                  <p className="text-xs text-[var(--muted)]">{user.email}</p>
+                  <p className="text-xs text-[var(--muted)]">
+                    {formatDisplayEmail(user.email)}
+                  </p>
                 </div>
               </div>
               <button className="outline-button" type="button" onClick={() => void handleLogout()}>
@@ -237,7 +242,7 @@ export function WorkspacePage({
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <p className="tech-label text-[10px] text-[var(--muted)]">
-                    {currentWorkspace?.name ?? "Workspace"}
+                    {formatWorkspaceDisplayName(currentWorkspace?.name)}
                   </p>
                   <h1 className="mt-2 text-[clamp(2rem,3.4vw,2.8rem)] font-semibold tracking-[-0.04em] text-[var(--foreground)]">
                     {title}
@@ -266,7 +271,7 @@ export function WorkspacePage({
               <p className="tech-label text-[10px] text-[var(--muted)]">Workspace</p>
               <div className="mt-4">
                 <p className="text-lg font-semibold text-[var(--foreground)]">
-                  {currentWorkspace?.name}
+                  {formatWorkspaceDisplayName(currentWorkspace?.name)}
                 </p>
                 <p className="mt-2 text-sm leading-7 text-[var(--muted)]">
                   {normalizePtBrCopy(currentWorkspace?.description)}
@@ -296,7 +301,7 @@ export function WorkspacePage({
                     {formatPlural(currentWorkspace?.counts.templates ?? 0, "template")}
                   </p>
                   <p className="mt-1 text-sm text-[var(--muted)]">
-                    Biblioteca disponível para criar novos documentos.
+                    Estruturas prontas para abrir documentos com padrão definido.
                   </p>
                 </div>
                 <div className="subtle-card p-4">
@@ -304,11 +309,11 @@ export function WorkspacePage({
                     {formatPlural(currentWorkspace?.counts.uploads ?? 0, "upload")}
                   </p>
                   <p className="mt-1 text-sm text-[var(--muted)]">
-                    Arquivos associados ao workspace e aos documentos.
+                    Arquivos de apoio centralizados junto dos fluxos do workspace.
                   </p>
                 </div>
-                <Link className="outline-button w-full" href="/pricing">
-                  Ver planos
+                <Link className="outline-button w-full" href="/billing">
+                  Abrir cobrança
                 </Link>
               </div>
             </section>

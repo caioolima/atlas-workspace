@@ -144,75 +144,106 @@ function TemplatesContent({ workspaceId }: { workspaceId: string | null }) {
   }
 
   return (
-    <div className="space-y-5">
-      <section className="surface rounded-[26px] p-6">
-        <div className="flex items-center justify-between gap-3 border-b border-[var(--stroke)] pb-5">
-          <div>
-            <p className="tech-label text-[10px] text-[var(--muted)]">Biblioteca</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-              Templates disponíveis
-            </h2>
-          </div>
-          <span className="status-chip">{templates.length} itens</span>
-        </div>
+    <div className="grid gap-5 2xl:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="space-y-5">
+        <section className="surface rounded-[26px] p-6">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end">
+            <div>
+              <p className="tech-label text-[10px] text-[var(--muted)]">Coleção ativa</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
+                Modelos para abrir processos com contexto pronto
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--muted)]">
+                A biblioteca concentra estruturas reutilizáveis para onboarding, handoff,
+                incidentes e rotinas recorrentes sem depender de arquivos soltos.
+              </p>
+            </div>
 
-        <div className="mt-2">
-          {templates.map((template) => (
-            <div
-              key={template.id}
-              className="grid gap-4 border-b border-[var(--stroke)] py-5 last:border-none xl:grid-cols-[minmax(0,1fr)_180px]"
-            >
-              <div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="status-chip">{formatCategoryLabel(template.category)}</span>
-                  <span className="status-chip" data-tone="info">
-                    {template.isSystem ? "Sistema" : "Custom"}
-                  </span>
-                </div>
-                <h3 className="mt-3 text-lg font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-                  {template.name}
-                </h3>
-                <p className="mt-2 text-sm leading-7 text-[var(--muted)]">
-                  {normalizePtBrCopy(template.description)}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="subtle-card p-4">
+                <p className="tech-label text-[10px] text-[var(--muted)]">Ativos</p>
+                <p className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--foreground)]">
+                  {templates.length}
                 </p>
-                <div className="mt-4 grid gap-2 md:grid-cols-3">
+              </div>
+              <div className="subtle-card p-4">
+                <p className="tech-label text-[10px] text-[var(--muted)]">Base</p>
+                <p className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--foreground)]">
+                  {templates.filter((template) => template.isSystem).length}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="surface rounded-[26px] p-6">
+          <div className="flex items-center justify-between gap-3 border-b border-[var(--stroke)] pb-5">
+            <div>
+              <p className="tech-label text-[10px] text-[var(--muted)]">Biblioteca</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
+                Templates disponíveis
+              </h2>
+            </div>
+            <span className="status-chip">{templates.length} modelos</span>
+          </div>
+
+          <div className="mt-5 space-y-4">
+            {templates.map((template) => (
+              <article key={template.id} className="subtle-card overflow-hidden p-5">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="status-chip">{formatCategoryLabel(template.category)}</span>
+                      <span className="status-chip" data-tone="info">
+                        {template.isSystem ? "Modelo base" : "Criado pelo time"}
+                      </span>
+                    </div>
+                    <h3 className="mt-3 text-lg font-semibold tracking-[-0.03em] text-[var(--foreground)]">
+                      {template.name}
+                    </h3>
+                    <p className="mt-2 max-w-3xl text-sm leading-7 text-[var(--muted)]">
+                      {normalizePtBrCopy(template.description)}
+                    </p>
+                  </div>
+
+                  <button
+                    className="pill-button shrink-0"
+                    type="button"
+                    onClick={() => handleApply(template.id)}
+                  >
+                    <FilePlus2 className="h-4 w-4" />
+                    Usar template
+                  </button>
+                </div>
+
+                <div className="mt-4 grid gap-3 md:grid-cols-3">
                   {template.blocks.slice(0, 3).map((block) => (
                     <div
                       key={`${template.id}-${block.id}`}
-                      className="subtle-card px-4 py-3 text-sm text-[var(--foreground)]"
+                      className="rounded-[14px] border border-[var(--stroke)] bg-white px-4 py-3 text-sm leading-6 text-[var(--foreground)]"
                     >
                       {normalizePtBrCopy(block.content)}
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="flex items-start xl:justify-end">
-                <button
-                  className="pill-button"
-                  type="button"
-                  onClick={() => handleApply(template.id)}
-                >
-                  <FilePlus2 className="h-4 w-4" />
-                  Aplicar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="surface rounded-[26px] p-6">
-        <div className="flex items-center justify-between gap-3 border-b border-[var(--stroke)] pb-5">
-          <div>
-            <p className="tech-label text-[10px] text-[var(--muted)]">Novo template</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-              Criar modelo da biblioteca
-            </h2>
+              </article>
+            ))}
           </div>
+        </section>
+      </div>
+
+      <aside className="surface rounded-[26px] p-6 2xl:sticky 2xl:top-28 2xl:self-start">
+        <div className="border-b border-[var(--stroke)] pb-5">
+          <p className="tech-label text-[10px] text-[var(--muted)]">Novo template</p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
+            Criar modelo
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+            Monte uma estrutura própria para o time abrir novos documentos com o mesmo padrão.
+          </p>
         </div>
 
-        <div className="mt-6 grid gap-4 xl:grid-cols-2">
+        <div className="mt-6 grid gap-4">
           <label className="grid gap-2 text-sm text-[var(--muted)]">
             Nome
             <input
@@ -243,7 +274,7 @@ function TemplatesContent({ workspaceId }: { workspaceId: string | null }) {
             </select>
           </label>
 
-          <label className="grid gap-2 text-sm text-[var(--muted)] xl:col-span-2">
+          <label className="grid gap-2 text-sm text-[var(--muted)]">
             Descrição
             <textarea
               className="field-control min-h-[100px] rounded-[14px] px-4 py-4 text-sm"
@@ -254,7 +285,7 @@ function TemplatesContent({ workspaceId }: { workspaceId: string | null }) {
             />
           </label>
 
-          <label className="grid gap-2 text-sm text-[var(--muted)] xl:col-span-2">
+          <label className="grid gap-2 text-sm text-[var(--muted)]">
             Introdução
             <textarea
               className="field-control min-h-[120px] rounded-[14px] px-4 py-4 text-sm"
@@ -282,7 +313,7 @@ function TemplatesContent({ workspaceId }: { workspaceId: string | null }) {
           </button>
           {message ? <p className="text-sm text-[var(--danger)]">{message}</p> : null}
         </div>
-      </section>
+      </aside>
     </div>
   );
 }
@@ -291,7 +322,7 @@ export default function TemplatesPage() {
   return (
     <WorkspacePage
       title="Biblioteca"
-      subtitle="Gerencie templates reutilizáveis para acelerar criação e padronizar documentos do time."
+      subtitle="Organize modelos reutilizáveis para abrir documentos com mais consistência e menos trabalho manual."
     >
       {({ workspaceId }) => <TemplatesContent workspaceId={workspaceId} />}
     </WorkspacePage>

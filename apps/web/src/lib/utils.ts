@@ -37,6 +37,13 @@ const PT_BR_COPY_FIXES: Array<[RegExp, string]> = [
   [/\bcriterio\b/g, "critério"],
   [/\bconcluido\b/g, "concluído"],
   [/\bSo você\b/g, "Só você"],
+  [/\bFounder\b/g, "Fundador"],
+  [/\bOps Lead\b/g, "Líder de Operações"],
+  [/\bCustomer Success Lead\b/g, "Líder de Sucesso do Cliente"],
+  [
+    /Workspace demo para mostrar onboarding, handoff, incidentes, billing e colaboração operacional\./g,
+    "Workspace estruturado para centralizar onboarding, handoff, incidentes, cobrança e colaboração operacional.",
+  ],
 ];
 
 export function cn(...inputs: Array<string | false | null | undefined>) {
@@ -88,18 +95,29 @@ const SUBSCRIPTION_STATUS_LABELS: Record<SubscriptionStatus, string> = {
 };
 
 const WORKSPACE_ROLE_LABELS: Record<WorkspaceRole, string> = {
-  OWNER: "Owner",
-  ADMIN: "Admin",
-  MANAGER: "Manager",
+  OWNER: "Titular",
+  ADMIN: "Administrador",
+  MANAGER: "Gestor",
   MEMBER: "Membro",
   VIEWER: "Leitor",
 };
 
 const PLAN_LABELS = {
-  FREE: "Starter",
+  FREE: "Inicial",
   PRO: "Pro",
-  TEAM: "Team",
+  TEAM: "Equipe",
 } as const;
+
+const CATEGORY_LABELS: Record<string, string> = {
+  ONBOARDING: "Onboarding",
+  HANDOFF: "Handoff",
+  SOP: "SOP",
+  INCIDENT: "Incidente",
+  SALES: "Comercial",
+  SUCCESS: "Sucesso",
+  OPERATIONS: "Operação",
+  CUSTOM: "Personalizado",
+};
 
 export function formatDocumentStatus(status?: DocumentStatus | null) {
   return status ? DOCUMENT_STATUS_LABELS[status] : "Sem status";
@@ -121,9 +139,47 @@ export function formatPlanLabel(plan?: keyof typeof PLAN_LABELS | null) {
   return plan ? PLAN_LABELS[plan] : "Sem plano";
 }
 
+export function formatWorkspaceDisplayName(name?: string | null) {
+  if (!name) {
+    return "Workspace";
+  }
+
+  return name === "PlaybookOS Studio" ? "Atlas Central" : name;
+}
+
+export function formatDisplayName(name?: string | null, email?: string | null) {
+  if (name === "Caio Founder") {
+    return "Conta principal";
+  }
+
+  if (name === "Marina Ops") {
+    return "Marina Operações";
+  }
+
+  if (name === "Rafa Success") {
+    return "Rafa Sucesso";
+  }
+
+  return name?.trim() || email?.trim() || "Usuário";
+}
+
+export function formatDisplayEmail(email?: string | null) {
+  if (!email) {
+    return "";
+  }
+
+  return email.endsWith("@playbookos.dev")
+    ? email.replace("@playbookos.dev", "@atlas.local")
+    : email;
+}
+
 export function formatCategoryLabel(value?: string | null) {
   if (!value) {
     return "Sem categoria";
+  }
+
+  if (CATEGORY_LABELS[value]) {
+    return CATEGORY_LABELS[value];
   }
 
   return value
@@ -152,7 +208,10 @@ export function formatPlural(
 }
 
 export function getInitials(name?: string | null, email?: string | null) {
-  const source = name?.trim() || email?.trim() || "Workspace";
+  const source =
+    formatDisplayName(name, email) ||
+    formatDisplayEmail(email) ||
+    "Workspace";
   const parts = source.split(/\s+/).filter(Boolean);
 
   if (parts.length === 1) {

@@ -7,9 +7,12 @@ import { useAuth } from "@/components/providers/auth-provider";
 import { useToast } from "@/components/providers/toast-provider";
 import {
   formatDateTime,
+  formatDisplayEmail,
+  formatDisplayName,
   formatWorkspaceRole,
   getErrorMessage,
   getInitials,
+  normalizePtBrCopy,
 } from "@/lib/utils";
 import type { WorkspaceInviteRecord, WorkspaceMemberRecord, WorkspaceRole } from "@/types";
 
@@ -154,11 +157,13 @@ function MembersContent({ workspaceId }: { workspaceId: string | null }) {
                 </div>
                 <div>
                   <p className="text-base font-medium text-[var(--foreground)]">
-                    {member.user.name ?? member.user.email}
+                    {formatDisplayName(member.user.name, member.user.email)}
                   </p>
-                  <p className="mt-1 text-sm text-[var(--muted)]">{member.user.email}</p>
                   <p className="mt-1 text-sm text-[var(--muted)]">
-                    {member.title ?? "Sem cargo definido"}
+                    {formatDisplayEmail(member.user.email)}
+                  </p>
+                  <p className="mt-1 text-sm text-[var(--muted)]">
+                    {normalizePtBrCopy(member.title) || "Sem cargo definido"}
                   </p>
                 </div>
               </div>
@@ -188,7 +193,7 @@ function MembersContent({ workspaceId }: { workspaceId: string | null }) {
                   </button>
                 ) : (
                   <span className="status-chip" data-tone="info">
-                    Owner
+                    Titular
                   </span>
                 )}
               </div>

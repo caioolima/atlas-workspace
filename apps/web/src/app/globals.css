@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f3f6f8;
-  --foreground: #0f172a;
-  --muted: #64748b;
-  --muted-strong: #334155;
-  --panel: rgba(255, 255, 255, 0.88);
-  --panel-strong: rgba(255, 255, 255, 0.96);
-  --panel-soft: rgba(241, 245, 249, 0.98);
-  --panel-contrast: rgba(226, 232, 240, 0.9);
-  --stroke: rgba(15, 23, 42, 0.08);
-  --stroke-strong: rgba(15, 23, 42, 0.14);
-  --accent: #2563eb;
-  --accent-2: #0f766e;
-  --accent-3: #172554;
-  --accent-4: #dbe7ff;
-  --danger: #c24157;
-  --shadow: 0 18px 42px rgba(15, 23, 42, 0.05);
+  --background: #f4f1e8;
+  --foreground: #1d2721;
+  --muted: #6e776e;
+  --muted-strong: #435047;
+  --panel: rgba(253, 250, 244, 0.88);
+  --panel-strong: rgba(253, 250, 244, 0.96);
+  --panel-soft: rgba(246, 241, 231, 0.98);
+  --panel-contrast: rgba(234, 226, 212, 0.92);
+  --stroke: rgba(64, 77, 63, 0.1);
+  --stroke-strong: rgba(64, 77, 63, 0.16);
+  --accent: #6b7e65;
+  --accent-2: #8e7454;
+  --accent-3: #4f634d;
+  --accent-4: #e8dfd0;
+  --danger: #b05252;
+  --shadow: 0 18px 42px rgba(44, 52, 44, 0.06);
   --font-sans-base: "Aptos", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-display-base: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
@@ -39,9 +39,9 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 26%),
-    radial-gradient(circle at top right, rgba(15, 118, 110, 0.06), transparent 22%),
-    linear-gradient(180deg, #f7fafc 0%, #f3f6f8 44%, #eef2f6 100%);
+    radial-gradient(circle at top left, rgba(107, 126, 101, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(142, 116, 84, 0.07), transparent 24%),
+    linear-gradient(180deg, #faf7f1 0%, #f4f1e8 44%, #eee8dd 100%);
   color: var(--foreground);
   font-family: var(--font-sans-base);
 }
@@ -69,7 +69,7 @@ button {
 }
 
 ::selection {
-  background: rgba(37, 99, 235, 0.14);
+  background: rgba(107, 126, 101, 0.18);
   color: var(--foreground);
 }
 
@@ -91,7 +91,7 @@ button {
   gap: 0.6rem;
   justify-content: center;
   border-radius: 10px;
-  border: 1px solid rgba(23, 37, 84, 0.16);
+  border: 1px solid rgba(79, 99, 77, 0.16);
   background: var(--accent-3);
   color: #f8f8f5;
   padding: 0.82rem 1.12rem;
@@ -102,12 +102,12 @@ button {
     box-shadow 160ms ease,
     opacity 160ms ease,
     background 160ms ease;
-  box-shadow: 0 10px 24px rgba(23, 37, 84, 0.14);
+  box-shadow: 0 10px 24px rgba(79, 99, 77, 0.16);
 }
 
 .pill-button:hover {
   transform: translateY(-1px);
-  background: #0f172a;
+  background: #445541;
 }
 
 .pill-button:disabled {
@@ -135,7 +135,7 @@ button {
 .outline-button:hover {
   transform: translateY(-1px);
   background: #ffffff;
-  border-color: rgba(37, 99, 235, 0.18);
+  border-color: rgba(107, 126, 101, 0.22);
 }
 
 .icon-button {
@@ -173,9 +173,9 @@ button {
 
 .field-control:focus {
   outline: none;
-    border-color: rgba(37, 99, 235, 0.26);
+  border-color: rgba(107, 126, 101, 0.28);
   box-shadow:
-    0 0 0 4px rgba(37, 99, 235, 0.08),
+    0 0 0 4px rgba(107, 126, 101, 0.09),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
@@ -197,7 +197,7 @@ button {
 .text-gradient {
   background: linear-gradient(
     135deg,
-    #172554 0%,
+    #4f634d 0%,
     var(--accent) 40%,
     var(--accent-2) 100%
   );
@@ -292,7 +292,7 @@ button {
 .progress-value {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-3) 100%);
+  background: linear-gradient(90deg, var(--accent-2) 0%, var(--accent-3) 100%);
 }
 
 .toast-card {
@@ -316,7 +316,7 @@ textarea::-webkit-scrollbar {
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background: rgba(126, 189, 255, 0.22);
+  background: rgba(107, 126, 101, 0.22);
   border-radius: 999px;
 }
 
