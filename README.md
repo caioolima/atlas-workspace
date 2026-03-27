@@ -30,9 +30,17 @@ Na prática, a plataforma combina:
 
 ## Capturas de Tela
 
+### Home
+
+![Home institucional da plataforma Atlas](assets/screenshots/home.png)
+
 ### Dashboard
 
-![Resumo do workspace com documentos, membros e templates](assets/screenshots/dashboard.png)
+![Visão do workspace com métricas, documentos recentes e biblioteca](assets/screenshots/dashboard.png)
+
+### Biblioteca
+
+![Biblioteca de templates e painel de criação de modelos](assets/screenshots/templates.png)
 
 ## Stack
 
